@@ -1,0 +1,27 @@
+{
+  "project": "42-years-milestones",
+  "instructions": "For each item in `scenes`, synthesize `text` with your TTS and save the audio using exactly the given `file` name (mp3 or wav) into one output folder. Order doesn't matter if filenames are used as-is — they sort/match by index.",
+  "scenes": [
+    { "index": 0,  "id": "intro",   "file": "00-intro.mp3",   "text": "42 Years of Growth and Expansion. 1984 to 2026." },
+    { "index": 1,  "id": "1984",    "file": "01-1984.mp3",    "text": "1984. Our journey began with a fast food restaurant in Mumbai." },
+    { "index": 2,  "id": "1988",    "file": "02-1988.mp3",    "text": "1988. We expanded into fine-dine restaurants and the catering business." },
+    { "index": 3,  "id": "1993",    "file": "03-1993.mp3",    "text": "1993. We entered the industrial catering segment." },
+    { "index": 4,  "id": "1999",    "file": "04-1999.mp3",    "text": "1999. Our operations expanded further into offshore catering, as well as catering for Clubs and Gymkhanas." },
+    { "index": 5,  "id": "2004",    "file": "05-2004.mp3",    "text": "2004. We further expanded our catering business, entering Institutional Catering, Guest House operations, and Facilities Management." },
+    { "index": 6,  "id": "2006",    "file": "06-2006.mp3",    "text": "2006. We began our association with the Indian Institute of Technology Gulmohar." },
+    { "index": 7,  "id": "2007",    "file": "07-2007.mp3",    "text": "2007. We expanded our catering services to Dockyards and Sports Clubs." },
+    { "index": 8,  "id": "2009",    "file": "08-2009.mp3",    "text": "2009. We entered the Indian Institute of Management Indore." },
+    { "index": 9,  "id": "2010",    "file": "09-2010.mp3",    "text": "2010. A new chapter began as we entered the hotels and resorts business with the opening of Ramada Navi Mumbai in Mahape." },
+    { "index": 10, "id": "2018",    "file": "10-2018.mp3",    "text": "2018. We expanded our hospitality portfolio with the launch of Shriphal Resort in Kagwad, Karnataka." },
+    { "index": 11, "id": "2020",    "file": "11-2020.mp3",    "text": "2020. We opened our second hotel, Citrus Classic, in Bengaluru, Karnataka." },
+    { "index": 12, "id": "2022",    "file": "12-2022.mp3",    "text": "2022. We expanded our institutional presence with the Reserve Bank of India OLDR." },
+    { "index": 13, "id": "2023a",   "file": "13-2023a.mp3",   "text": "2023. Our institutional portfolio continued to grow with Yashwantrao Chavan Academy of Development Administration." },
+    { "index": 14, "id": "2023b",   "file": "14-2023b.mp3",   "text": "2023. We expanded into Vedanta Steel Industrial." },
+    { "index": 15, "id": "2023c",   "file": "15-2023c.mp3",   "text": "2023. We strengthened our hospitality portfolio with the launch of our third hotel, Citrus, in Lonavala." },
+    { "index": 16, "id": "2024",    "file": "16-2024.mp3",    "text": "2024. We took a significant step forward by acquiring Mirah Hospitality across India." },
+    { "index": 17, "id": "2026a",   "file": "17-2026a.mp3",   "text": "2026. Our growth continues with Courtyard by Marriott." },
+    { "index": 18, "id": "2026b",   "file": "18-2026b.mp3",   "text": "2026. We expanded into the Tribal Boarding School Central Kitchen project for the Maharashtra State Project." },
+    { "index": 19, "id": "2026c",   "file": "19-2026c.mp3",   "text": "2026. And we further strengthened our hospitality portfolio with Radisson Bangalore." },
+    { "index": 20, "id": "closing", "file": "20-closing.mp3", "text": "From a single fast food restaurant in Mumbai in 1984, to a diversified presence across catering, institutional services, facilities management and hospitality — 42 years of growth have been built on continuous expansion, new partnerships, and a commitment to creating lasting value." }
+  ]
+}
