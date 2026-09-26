@@ -6,162 +6,182 @@
     <script src="assets/gsap.min.js"></script>
     <style>
       @font-face { font-family: "Inter"; font-weight: 100 900; font-display: block; src: url(assets/fonts/inter.woff2) format("woff2"); }
-      @font-face { font-family: "Playfair Display"; font-weight: 400 900; font-display: block; src: url(assets/fonts/playfair.woff2) format("woff2"); }
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #0b1426; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #003F80; }
       #root {
         position: relative; width: 100%; height: 100%;
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #f3efe6;
-        background: radial-gradient(ellipse at 30% 20%, #1a2b4d 0%, #0b1426 60%, #070d1a 100%);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #ffffff;
+        background: #003F80;
       }
       .clip { position: absolute; inset: 0; }
       .scene { display: flex; flex-direction: column; justify-content: center; padding: 0 200px 140px; }
-      .count { position: absolute; top: 90px; left: 200px; font-size: 26px; letter-spacing: 0.3em; color: #8e9bb5; }
-      .year { transform-origin: left bottom; font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: 260px; line-height: 1; color: #d4a64a; }
-      .rule { width: 220px; height: 4px; background: #d4a64a; margin: 40px 0 44px; transform-origin: left center; }
-      .text { font-size: 54px; line-height: 1.35; font-weight: 500; max-width: 1450px; }
+      .count { position: absolute; top: 90px; left: 200px; font-size: 26px; letter-spacing: 0.3em; color: #cfe0f5; }
+      .year { transform-origin: left bottom; font-weight: 700; font-size: 260px; line-height: 1; color: #ffffff; }
+      .rule { width: 220px; height: 4px; background: #ffffff; margin: 40px 0 44px; transform-origin: left center; }
+      .text { font-size: 54px; line-height: 1.35; font-weight: 500; max-width: 1450px; color: #ffffff; }
       #intro { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-      #intro-big { font-family: "Playfair Display", Georgia, serif; font-size: 300px; font-weight: 700; color: #d4a64a; line-height: 1; }
-      #intro-sub { font-size: 76px; font-weight: 600; margin-top: 20px; }
-      #intro-tag { font-size: 30px; letter-spacing: 0.4em; color: #8e9bb5; margin-top: 36px; text-transform: uppercase; }
+      #intro-big { font-size: 300px; font-weight: 700; color: #ffffff; line-height: 1; }
+      #intro-sub { font-size: 76px; font-weight: 600; margin-top: 20px; color: #ffffff; }
+      #intro-tag { font-size: 30px; letter-spacing: 0.4em; color: #cfe0f5; margin-top: 36px; text-transform: uppercase; }
       #closing { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 220px 60px; }
-      #c-range { font-family: "Playfair Display", Georgia, serif; font-size: 120px; font-weight: 700; color: #d4a64a; }
-      #c-text { font-size: 44px; line-height: 1.5; margin-top: 44px; max-width: 1480px; }
-      #c-end { font-size: 30px; letter-spacing: 0.4em; color: #8e9bb5; margin-top: 56px; text-transform: uppercase; }
-      #rail { position: absolute; top: auto; left: 200px; right: 200px; bottom: 110px; opacity: 0; height: 2px; background: #2c3a57; }
-      #fill { position: absolute; left: 0; top: 0; height: 2px; width: 0%; background: #d4a64a; }
-      .dot { position: absolute; top: -7px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: #2c3a57; }
-      .tick { position: absolute; top: 22px; transform: translateX(-50%); font-size: 20px; color: #9aa6bd; }
+      #c-range { font-size: 120px; font-weight: 700; color: #ffffff; }
+      #c-text { font-size: 44px; line-height: 1.5; margin-top: 44px; max-width: 1480px; color: #ffffff; }
+      #c-end { font-size: 30px; letter-spacing: 0.4em; color: #cfe0f5; margin-top: 56px; text-transform: uppercase; }
+      #rail { position: absolute; top: auto; left: 200px; right: 200px; bottom: 110px; opacity: 0; height: 2px; background: rgba(255, 255, 255, 0.3); }
+      #fill { position: absolute; left: 0; top: 0; height: 2px; width: 0%; background: #ffffff; }
+      .dot { position: absolute; top: -7px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); }
+      .tick { position: absolute; top: 22px; transform: translateX(-50%); font-size: 20px; color: #cfe0f5; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="105.68" data-width="1920" data-height="1080">
-      <section id="intro" class="clip" data-start="0" data-duration="4.5" data-track-index="1">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="154" data-width="1920" data-height="1080">
+      <section id="intro" class="clip" data-start="0" data-duration="5.2" data-track-index="1">
         <div id="intro-big">42</div>
         <div id="intro-sub">Years of Growth &amp; Expansion</div>
         <div id="intro-tag">1984 — 2026</div>
       </section>
+      <audio id="a-intro" class="clip" data-start="0" data-duration="5.15" data-track-index="3" src="assets/audio/00-intro.mp3"></audio>
 
-      <section id="s0" class="clip scene" data-start="4.5" data-duration="4.24" data-track-index="1">
+      <section id="s0" class="clip scene" data-start="5.2" data-duration="5.46" data-track-index="1">
         <div class="count">01 / 19</div>
         <div class="year" id="y0">1984</div>
         <div class="rule" id="r0"></div>
         <p class="text" id="t0">Our journey began with a fast food restaurant in Mumbai.</p>
       </section>
-      <section id="s1" class="clip scene" data-start="8.74" data-duration="4.44" data-track-index="1">
+      <audio id="a0" class="clip" data-start="5.2" data-duration="5.41" data-track-index="3" src="assets/audio/01-1984.mp3"></audio>
+      <section id="s1" class="clip scene" data-start="10.66" data-duration="5.64" data-track-index="1">
         <div class="count">02 / 19</div>
         <div class="year" id="y1">1988</div>
         <div class="rule" id="r1"></div>
         <p class="text" id="t1">We expanded into fine-dine restaurants and the catering business.</p>
       </section>
-      <section id="s2" class="clip scene" data-start="13.18" data-duration="4" data-track-index="1">
+      <audio id="a1" class="clip" data-start="10.66" data-duration="5.59" data-track-index="3" src="assets/audio/02-1988.mp3"></audio>
+      <section id="s2" class="clip scene" data-start="16.3" data-duration="4.62" data-track-index="1">
         <div class="count">03 / 19</div>
         <div class="year" id="y2">1993</div>
         <div class="rule" id="r2"></div>
         <p class="text" id="t2">We entered the industrial catering segment.</p>
       </section>
-      <section id="s3" class="clip scene" data-start="17.18" data-duration="5.22" data-track-index="1">
+      <audio id="a2" class="clip" data-start="16.3" data-duration="4.57" data-track-index="3" src="assets/audio/03-1993.mp3"></audio>
+      <section id="s3" class="clip scene" data-start="20.92" data-duration="8.36" data-track-index="1">
         <div class="count">04 / 19</div>
         <div class="year" id="y3">1999</div>
         <div class="rule" id="r3"></div>
         <p class="text" id="t3">Our operations expanded further into offshore catering, as well as catering for Clubs and Gymkhanas.</p>
       </section>
-      <section id="s4" class="clip scene" data-start="22.4" data-duration="5.8" data-track-index="1">
+      <audio id="a3" class="clip" data-start="20.92" data-duration="8.31" data-track-index="3" src="assets/audio/04-1999.mp3"></audio>
+      <section id="s4" class="clip scene" data-start="29.28" data-duration="9.38" data-track-index="1">
         <div class="count">05 / 19</div>
         <div class="year" id="y4">2004</div>
         <div class="rule" id="r4"></div>
         <p class="text" id="t4">We further expanded our catering business, entering Institutional Catering, Guest House operations, and Facilities Management.</p>
       </section>
-      <section id="s5" class="clip scene" data-start="28.2" data-duration="4.64" data-track-index="1">
+      <audio id="a4" class="clip" data-start="29.28" data-duration="9.33" data-track-index="3" src="assets/audio/05-2004.mp3"></audio>
+      <section id="s5" class="clip scene" data-start="38.66" data-duration="6.95" data-track-index="1">
         <div class="count">06 / 19</div>
         <div class="year" id="y5">2006</div>
         <div class="rule" id="r5"></div>
         <p class="text" id="t5">We began our association with the Indian Institute of Technology Gulmohar.</p>
       </section>
-      <section id="s6" class="clip scene" data-start="32.84" data-duration="4.42" data-track-index="1">
+      <audio id="a5" class="clip" data-start="38.66" data-duration="6.90" data-track-index="3" src="assets/audio/06-2006.mp3"></audio>
+      <section id="s6" class="clip scene" data-start="45.61" data-duration="6.22" data-track-index="1">
         <div class="count">07 / 19</div>
         <div class="year" id="y6">2007</div>
         <div class="rule" id="r6"></div>
         <p class="text" id="t6">We expanded our catering services to Dockyards and Sports Clubs.</p>
       </section>
-      <section id="s7" class="clip scene" data-start="37.26" data-duration="4.18" data-track-index="1">
+      <audio id="a6" class="clip" data-start="45.61" data-duration="6.17" data-track-index="3" src="assets/audio/07-2007.mp3"></audio>
+      <section id="s7" class="clip scene" data-start="51.83" data-duration="5.2" data-track-index="1">
         <div class="count">08 / 19</div>
         <div class="year" id="y7">2009</div>
         <div class="rule" id="r7"></div>
         <p class="text" id="t7">We entered the Indian Institute of Management Indore.</p>
       </section>
-      <section id="s8" class="clip scene" data-start="41.44" data-duration="5.56" data-track-index="1">
+      <audio id="a7" class="clip" data-start="51.83" data-duration="5.15" data-track-index="3" src="assets/audio/08-2009.mp3"></audio>
+      <section id="s8" class="clip scene" data-start="57.03" data-duration="8.31" data-track-index="1">
         <div class="count">09 / 19</div>
         <div class="year" id="y8">2010</div>
         <div class="rule" id="r8"></div>
         <p class="text" id="t8">A new chapter began as we entered the hotels and resorts business with the opening of Ramada Navi Mumbai in Mahape.</p>
       </section>
-      <section id="s9" class="clip scene" data-start="47" data-duration="5.09" data-track-index="1">
+      <audio id="a8" class="clip" data-start="57.03" data-duration="8.26" data-track-index="3" src="assets/audio/09-2010.mp3"></audio>
+      <section id="s9" class="clip scene" data-start="65.34" data-duration="7.71" data-track-index="1">
         <div class="count">10 / 19</div>
         <div class="year" id="y9">2018</div>
         <div class="rule" id="r9"></div>
         <p class="text" id="t9">We expanded our hospitality portfolio with the launch of Shriphal Resort in Kagwad, Karnataka.</p>
       </section>
-      <section id="s10" class="clip scene" data-start="52.09" data-duration="4.51" data-track-index="1">
+      <audio id="a9" class="clip" data-start="65.34" data-duration="7.66" data-track-index="3" src="assets/audio/10-2018.mp3"></audio>
+      <section id="s10" class="clip scene" data-start="73.05" data-duration="6.87" data-track-index="1">
         <div class="count">11 / 19</div>
         <div class="year" id="y10">2020</div>
         <div class="rule" id="r10"></div>
         <p class="text" id="t10">We opened our second hotel, Citrus Classic, in Bengaluru, Karnataka.</p>
       </section>
-      <section id="s11" class="clip scene" data-start="56.6" data-duration="4.67" data-track-index="1">
+      <audio id="a10" class="clip" data-start="73.05" data-duration="6.82" data-track-index="3" src="assets/audio/11-2020.mp3"></audio>
+      <section id="s11" class="clip scene" data-start="79.92" data-duration="6.82" data-track-index="1">
         <div class="count">12 / 19</div>
         <div class="year" id="y11">2022</div>
         <div class="rule" id="r11"></div>
         <p class="text" id="t11">We expanded our institutional presence with the Reserve Bank of India OLDR.</p>
       </section>
-      <section id="s12" class="clip scene" data-start="61.27" data-duration="5.4" data-track-index="1">
+      <audio id="a11" class="clip" data-start="79.92" data-duration="6.77" data-track-index="3" src="assets/audio/12-2022.mp3"></audio>
+      <section id="s12" class="clip scene" data-start="86.74" data-duration="8.38" data-track-index="1">
         <div class="count">13 / 19</div>
         <div class="year" id="y12">2023</div>
         <div class="rule" id="r12"></div>
         <p class="text" id="t12">Our institutional portfolio continued to grow with Yashwantrao Chavan Academy of Development Administration.</p>
       </section>
-      <section id="s13" class="clip scene" data-start="66.67" data-duration="4" data-track-index="1">
+      <audio id="a12" class="clip" data-start="86.74" data-duration="8.33" data-track-index="3" src="assets/audio/13-2023a.mp3"></audio>
+      <section id="s13" class="clip scene" data-start="95.12" data-duration="5.04" data-track-index="1">
         <div class="count">14 / 19</div>
         <div class="year" id="y13">2023</div>
         <div class="rule" id="r13"></div>
         <p class="text" id="t13">We expanded into Vedanta Steel Industrial.</p>
       </section>
-      <section id="s14" class="clip scene" data-start="70.67" data-duration="5.18" data-track-index="1">
+      <audio id="a13" class="clip" data-start="95.12" data-duration="4.99" data-track-index="3" src="assets/audio/14-2023b.mp3"></audio>
+      <section id="s14" class="clip scene" data-start="100.16" data-duration="7.89" data-track-index="1">
         <div class="count">15 / 19</div>
         <div class="year" id="y14">2023</div>
         <div class="rule" id="r14"></div>
         <p class="text" id="t14">We strengthened our hospitality portfolio with the launch of our third hotel, Citrus, in Lonavala.</p>
       </section>
-      <section id="s15" class="clip scene" data-start="75.85" data-duration="4.76" data-track-index="1">
+      <audio id="a14" class="clip" data-start="100.16" data-duration="7.84" data-track-index="3" src="assets/audio/15-2023c.mp3"></audio>
+      <section id="s15" class="clip scene" data-start="108.05" data-duration="6.95" data-track-index="1">
         <div class="count">16 / 19</div>
         <div class="year" id="y15">2024</div>
         <div class="rule" id="r15"></div>
         <p class="text" id="t15">We took a significant step forward by acquiring Mirah Hospitality across India.</p>
       </section>
-      <section id="s16" class="clip scene" data-start="80.61" data-duration="4.07" data-track-index="1">
+      <audio id="a15" class="clip" data-start="108.05" data-duration="6.90" data-track-index="3" src="assets/audio/16-2024.mp3"></audio>
+      <section id="s16" class="clip scene" data-start="115" data-duration="5.28" data-track-index="1">
         <div class="count">17 / 19</div>
         <div class="year" id="y16">2026</div>
         <div class="rule" id="r16"></div>
         <p class="text" id="t16">Our growth continues with Courtyard by Marriott.</p>
       </section>
-      <section id="s17" class="clip scene" data-start="84.68" data-duration="5.27" data-track-index="1">
+      <audio id="a16" class="clip" data-start="115" data-duration="5.23" data-track-index="3" src="assets/audio/17-2026a.mp3"></audio>
+      <section id="s17" class="clip scene" data-start="120.28" data-duration="7.78" data-track-index="1">
         <div class="count">18 / 19</div>
         <div class="year" id="y17">2026</div>
         <div class="rule" id="r17"></div>
         <p class="text" id="t17">We expanded into the Tribal Boarding School Central Kitchen project for the Maharashtra State Project.</p>
       </section>
-      <section id="s18" class="clip scene" data-start="89.95" data-duration="4.73" data-track-index="1">
+      <audio id="a17" class="clip" data-start="120.28" data-duration="7.73" data-track-index="3" src="assets/audio/18-2026b.mp3"></audio>
+      <section id="s18" class="clip scene" data-start="128.06" data-duration="6.71" data-track-index="1">
         <div class="count">19 / 19</div>
         <div class="year" id="y18">2026</div>
         <div class="rule" id="r18"></div>
         <p class="text" id="t18">And we further strengthened our hospitality portfolio with Radisson Bangalore.</p>
       </section>
-      <section id="closing" class="clip" data-start="94.68" data-duration="11" data-track-index="1">
+      <audio id="a18" class="clip" data-start="128.06" data-duration="6.66" data-track-index="3" src="assets/audio/19-2026c.mp3"></audio>
+      <section id="closing" class="clip" data-start="134.77" data-duration="19.23" data-track-index="1">
         <div id="c-range">1984 → 2026</div>
         <p id="c-text">From a single fast food restaurant in Mumbai in 1984 to a diversified presence across catering, institutional services, facilities management and hospitality — 42 years of growth have been built on continuous expansion, new partnerships and a commitment to creating lasting value.</p>
         <div id="c-end">42 Years of Growth</div>
       </section>
-      <div id="rail" class="clip" data-start="4.5" data-duration="90.18" data-track-index="2">
+      <audio id="a-closing" class="clip" data-start="134.77" data-duration="19.18" data-track-index="3" src="assets/audio/20-closing.mp3"></audio>
+      <div id="rail" class="clip" data-start="5.2" data-duration="129.57" data-track-index="2">
         <div id="fill"></div>
         <div class="dot" id="dot-1984" style="left:0%"></div><div class="tick" style="left:0%">1984</div><div class="dot" id="dot-1988" style="left:9.523809523809524%"></div><div class="dot" id="dot-1993" style="left:21.428571428571427%"></div><div class="tick" style="left:21.428571428571427%">1993</div><div class="dot" id="dot-1999" style="left:35.714285714285715%"></div><div class="tick" style="left:35.714285714285715%">1999</div><div class="dot" id="dot-2004" style="left:47.61904761904761%"></div><div class="tick" style="left:47.61904761904761%">2004</div><div class="dot" id="dot-2006" style="left:52.38095238095239%"></div><div class="dot" id="dot-2007" style="left:54.761904761904766%"></div><div class="dot" id="dot-2009" style="left:59.523809523809526%"></div><div class="dot" id="dot-2010" style="left:61.904761904761905%"></div><div class="tick" style="left:61.904761904761905%">2010</div><div class="dot" id="dot-2018" style="left:80.95238095238095%"></div><div class="tick" style="left:80.95238095238095%">2018</div><div class="dot" id="dot-2020" style="left:85.71428571428571%"></div><div class="dot" id="dot-2022" style="left:90.47619047619048%"></div><div class="dot" id="dot-2023" style="left:92.85714285714286%"></div><div class="dot" id="dot-2024" style="left:95.23809523809523%"></div><div class="dot" id="dot-2026" style="left:100%"></div><div class="tick" style="left:100%">2026</div>
       </div>
@@ -172,128 +192,128 @@
       tl.fromTo("#intro-big", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }, 0.2);
       tl.fromTo("#intro-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.9);
       tl.fromTo("#intro-tag", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1.5);
-      tl.to("#intro", { opacity: 0, duration: 0.5 }, 4);
-      tl.fromTo("#rail", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 4.5);
-      tl.to("#rail", { opacity: 0, duration: 0.45 }, 94.23);
+      tl.to("#intro", { opacity: 0, duration: 0.5 }, 4.7);
+      tl.fromTo("#rail", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 5.2);
+      tl.to("#rail", { opacity: 0, duration: 0.45 }, 134.32);
 
-      tl.fromTo("#y0", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 4.6);
-      tl.fromTo("#r0", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 4.95);
-      tl.fromTo("#t0", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 5.2);
-      tl.to("#s0", { opacity: 0, duration: 0.45, ease: "power1.in" }, 8.29);
-      tl.to("#fill", { width: "0%", duration: 0.9, ease: "power2.inOut" }, 4.5);
-      tl.to("#dot-1984", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 4.8);
-      tl.fromTo("#y1", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 8.84);
-      tl.fromTo("#r1", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 9.19);
-      tl.fromTo("#t1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 9.44);
-      tl.to("#s1", { opacity: 0, duration: 0.45, ease: "power1.in" }, 12.73);
-      tl.to("#fill", { width: "9.523809523809524%", duration: 0.9, ease: "power2.inOut" }, 8.74);
-      tl.to("#dot-1988", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 9.040000000000001);
-      tl.fromTo("#y2", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 13.28);
-      tl.fromTo("#r2", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 13.629999999999999);
-      tl.fromTo("#t2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 13.879999999999999);
-      tl.to("#s2", { opacity: 0, duration: 0.45, ease: "power1.in" }, 16.73);
-      tl.to("#fill", { width: "21.428571428571427%", duration: 0.9, ease: "power2.inOut" }, 13.18);
-      tl.to("#dot-1993", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 13.48);
-      tl.fromTo("#y3", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 17.28);
-      tl.fromTo("#r3", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 17.63);
-      tl.fromTo("#t3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 17.88);
-      tl.to("#s3", { opacity: 0, duration: 0.45, ease: "power1.in" }, 21.95);
-      tl.to("#fill", { width: "35.714285714285715%", duration: 0.9, ease: "power2.inOut" }, 17.18);
-      tl.to("#dot-1999", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 17.48);
-      tl.fromTo("#y4", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 22.5);
-      tl.fromTo("#r4", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 22.849999999999998);
-      tl.fromTo("#t4", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 23.099999999999998);
-      tl.to("#s4", { opacity: 0, duration: 0.45, ease: "power1.in" }, 27.75);
-      tl.to("#fill", { width: "47.61904761904761%", duration: 0.9, ease: "power2.inOut" }, 22.4);
-      tl.to("#dot-2004", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 22.7);
-      tl.fromTo("#y5", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 28.3);
-      tl.fromTo("#r5", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 28.65);
-      tl.fromTo("#t5", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 28.9);
-      tl.to("#s5", { opacity: 0, duration: 0.45, ease: "power1.in" }, 32.39);
-      tl.to("#fill", { width: "52.38095238095239%", duration: 0.9, ease: "power2.inOut" }, 28.2);
-      tl.to("#dot-2006", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 28.5);
-      tl.fromTo("#y6", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 32.940000000000005);
-      tl.fromTo("#r6", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 33.290000000000006);
-      tl.fromTo("#t6", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 33.540000000000006);
-      tl.to("#s6", { opacity: 0, duration: 0.45, ease: "power1.in" }, 36.81);
-      tl.to("#fill", { width: "54.761904761904766%", duration: 0.9, ease: "power2.inOut" }, 32.84);
-      tl.to("#dot-2007", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 33.14);
-      tl.fromTo("#y7", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 37.36);
-      tl.fromTo("#r7", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 37.71);
-      tl.fromTo("#t7", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 37.96);
-      tl.to("#s7", { opacity: 0, duration: 0.45, ease: "power1.in" }, 40.99);
-      tl.to("#fill", { width: "59.523809523809526%", duration: 0.9, ease: "power2.inOut" }, 37.26);
-      tl.to("#dot-2009", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 37.559999999999995);
-      tl.fromTo("#y8", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 41.54);
-      tl.fromTo("#r8", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 41.89);
-      tl.fromTo("#t8", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 42.14);
-      tl.to("#s8", { opacity: 0, duration: 0.45, ease: "power1.in" }, 46.55);
-      tl.to("#fill", { width: "61.904761904761905%", duration: 0.9, ease: "power2.inOut" }, 41.44);
-      tl.to("#dot-2010", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 41.739999999999995);
-      tl.fromTo("#y9", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 47.1);
-      tl.fromTo("#r9", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 47.45);
-      tl.fromTo("#t9", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 47.7);
-      tl.to("#s9", { opacity: 0, duration: 0.45, ease: "power1.in" }, 51.64);
-      tl.to("#fill", { width: "80.95238095238095%", duration: 0.9, ease: "power2.inOut" }, 47);
-      tl.to("#dot-2018", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 47.3);
-      tl.fromTo("#y10", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 52.190000000000005);
-      tl.fromTo("#r10", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 52.540000000000006);
-      tl.fromTo("#t10", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 52.790000000000006);
-      tl.to("#s10", { opacity: 0, duration: 0.45, ease: "power1.in" }, 56.15);
-      tl.to("#fill", { width: "85.71428571428571%", duration: 0.9, ease: "power2.inOut" }, 52.09);
-      tl.to("#dot-2020", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 52.39);
-      tl.fromTo("#y11", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 56.7);
-      tl.fromTo("#r11", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 57.050000000000004);
-      tl.fromTo("#t11", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 57.300000000000004);
-      tl.to("#s11", { opacity: 0, duration: 0.45, ease: "power1.in" }, 60.82);
-      tl.to("#fill", { width: "90.47619047619048%", duration: 0.9, ease: "power2.inOut" }, 56.6);
-      tl.to("#dot-2022", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 56.9);
-      tl.fromTo("#y12", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 61.370000000000005);
-      tl.fromTo("#r12", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 61.720000000000006);
-      tl.fromTo("#t12", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 61.970000000000006);
-      tl.to("#s12", { opacity: 0, duration: 0.45, ease: "power1.in" }, 66.22);
-      tl.to("#fill", { width: "92.85714285714286%", duration: 0.9, ease: "power2.inOut" }, 61.27);
-      tl.to("#dot-2023", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 61.57);
-      tl.fromTo("#y13", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 66.77);
-      tl.fromTo("#r13", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 67.12);
-      tl.fromTo("#t13", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 67.37);
-      tl.to("#s13", { opacity: 0, duration: 0.45, ease: "power1.in" }, 70.22);
-      tl.to("#fill", { width: "92.85714285714286%", duration: 0.9, ease: "power2.inOut" }, 66.67);
-      tl.to("#dot-2023", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 66.97);
-      tl.fromTo("#y14", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 70.77);
-      tl.fromTo("#r14", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 71.12);
-      tl.fromTo("#t14", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 71.37);
-      tl.to("#s14", { opacity: 0, duration: 0.45, ease: "power1.in" }, 75.40);
-      tl.to("#fill", { width: "92.85714285714286%", duration: 0.9, ease: "power2.inOut" }, 70.67);
-      tl.to("#dot-2023", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 70.97);
-      tl.fromTo("#y15", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 75.94999999999999);
-      tl.fromTo("#r15", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 76.3);
-      tl.fromTo("#t15", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 76.55);
-      tl.to("#s15", { opacity: 0, duration: 0.45, ease: "power1.in" }, 80.16);
-      tl.to("#fill", { width: "95.23809523809523%", duration: 0.9, ease: "power2.inOut" }, 75.85);
-      tl.to("#dot-2024", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 76.14999999999999);
-      tl.fromTo("#y16", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 80.71);
-      tl.fromTo("#r16", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 81.06);
-      tl.fromTo("#t16", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 81.31);
-      tl.to("#s16", { opacity: 0, duration: 0.45, ease: "power1.in" }, 84.23);
-      tl.to("#fill", { width: "100%", duration: 0.9, ease: "power2.inOut" }, 80.61);
-      tl.to("#dot-2026", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 80.91);
-      tl.fromTo("#y17", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 84.78);
-      tl.fromTo("#r17", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 85.13000000000001);
-      tl.fromTo("#t17", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 85.38000000000001);
-      tl.to("#s17", { opacity: 0, duration: 0.45, ease: "power1.in" }, 89.50);
-      tl.to("#fill", { width: "100%", duration: 0.9, ease: "power2.inOut" }, 84.68);
-      tl.to("#dot-2026", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 84.98);
-      tl.fromTo("#y18", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 90.05);
-      tl.fromTo("#r18", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 90.4);
-      tl.fromTo("#t18", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 90.65);
-      tl.to("#s18", { opacity: 0, duration: 0.45, ease: "power1.in" }, 94.23);
-      tl.to("#fill", { width: "100%", duration: 0.9, ease: "power2.inOut" }, 89.95);
-      tl.to("#dot-2026", { backgroundColor: "#d4a64a", scale: 1.35, duration: 0.4 }, 90.25);
-      tl.fromTo("#c-range", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, 94.88000000000001);
-      tl.fromTo("#c-text", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" }, 95.58000000000001);
-      tl.fromTo("#c-end", { opacity: 0 }, { opacity: 1, duration: 1 }, 96.88000000000001);
-      tl.to("#closing", { opacity: 0, duration: 0.8 }, 104.88000000000001);
+      tl.fromTo("#y0", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 5.3);
+      tl.fromTo("#r0", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 5.65);
+      tl.fromTo("#t0", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 5.9);
+      tl.to("#s0", { opacity: 0, duration: 0.45, ease: "power1.in" }, 10.21);
+      tl.to("#fill", { width: "0%", duration: 0.9, ease: "power2.inOut" }, 5.2);
+      tl.to("#dot-1984", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 5.5);
+      tl.fromTo("#y1", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 10.76);
+      tl.fromTo("#r1", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 11.11);
+      tl.fromTo("#t1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 11.36);
+      tl.to("#s1", { opacity: 0, duration: 0.45, ease: "power1.in" }, 15.85);
+      tl.to("#fill", { width: "9.523809523809524%", duration: 0.9, ease: "power2.inOut" }, 10.66);
+      tl.to("#dot-1988", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 10.96);
+      tl.fromTo("#y2", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 16.400000000000002);
+      tl.fromTo("#r2", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 16.75);
+      tl.fromTo("#t2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 17);
+      tl.to("#s2", { opacity: 0, duration: 0.45, ease: "power1.in" }, 20.47);
+      tl.to("#fill", { width: "21.428571428571427%", duration: 0.9, ease: "power2.inOut" }, 16.3);
+      tl.to("#dot-1993", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 16.6);
+      tl.fromTo("#y3", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 21.020000000000003);
+      tl.fromTo("#r3", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 21.37);
+      tl.fromTo("#t3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 21.62);
+      tl.to("#s3", { opacity: 0, duration: 0.45, ease: "power1.in" }, 28.83);
+      tl.to("#fill", { width: "35.714285714285715%", duration: 0.9, ease: "power2.inOut" }, 20.92);
+      tl.to("#dot-1999", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 21.220000000000002);
+      tl.fromTo("#y4", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 29.380000000000003);
+      tl.fromTo("#r4", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 29.73);
+      tl.fromTo("#t4", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 29.98);
+      tl.to("#s4", { opacity: 0, duration: 0.45, ease: "power1.in" }, 38.21);
+      tl.to("#fill", { width: "47.61904761904761%", duration: 0.9, ease: "power2.inOut" }, 29.28);
+      tl.to("#dot-2004", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 29.580000000000002);
+      tl.fromTo("#y5", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 38.76);
+      tl.fromTo("#r5", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 39.11);
+      tl.fromTo("#t5", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 39.36);
+      tl.to("#s5", { opacity: 0, duration: 0.45, ease: "power1.in" }, 45.16);
+      tl.to("#fill", { width: "52.38095238095239%", duration: 0.9, ease: "power2.inOut" }, 38.66);
+      tl.to("#dot-2006", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 38.959999999999994);
+      tl.fromTo("#y6", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 45.71);
+      tl.fromTo("#r6", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 46.06);
+      tl.fromTo("#t6", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 46.31);
+      tl.to("#s6", { opacity: 0, duration: 0.45, ease: "power1.in" }, 51.38);
+      tl.to("#fill", { width: "54.761904761904766%", duration: 0.9, ease: "power2.inOut" }, 45.61);
+      tl.to("#dot-2007", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 45.91);
+      tl.fromTo("#y7", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 51.93);
+      tl.fromTo("#r7", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 52.28);
+      tl.fromTo("#t7", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 52.53);
+      tl.to("#s7", { opacity: 0, duration: 0.45, ease: "power1.in" }, 56.58);
+      tl.to("#fill", { width: "59.523809523809526%", duration: 0.9, ease: "power2.inOut" }, 51.83);
+      tl.to("#dot-2009", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 52.129999999999995);
+      tl.fromTo("#y8", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 57.13);
+      tl.fromTo("#r8", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 57.480000000000004);
+      tl.fromTo("#t8", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 57.730000000000004);
+      tl.to("#s8", { opacity: 0, duration: 0.45, ease: "power1.in" }, 64.89);
+      tl.to("#fill", { width: "61.904761904761905%", duration: 0.9, ease: "power2.inOut" }, 57.03);
+      tl.to("#dot-2010", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 57.33);
+      tl.fromTo("#y9", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 65.44);
+      tl.fromTo("#r9", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 65.79);
+      tl.fromTo("#t9", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 66.04);
+      tl.to("#s9", { opacity: 0, duration: 0.45, ease: "power1.in" }, 72.60);
+      tl.to("#fill", { width: "80.95238095238095%", duration: 0.9, ease: "power2.inOut" }, 65.34);
+      tl.to("#dot-2018", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 65.64);
+      tl.fromTo("#y10", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 73.14999999999999);
+      tl.fromTo("#r10", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 73.5);
+      tl.fromTo("#t10", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 73.75);
+      tl.to("#s10", { opacity: 0, duration: 0.45, ease: "power1.in" }, 79.47);
+      tl.to("#fill", { width: "85.71428571428571%", duration: 0.9, ease: "power2.inOut" }, 73.05);
+      tl.to("#dot-2020", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 73.35);
+      tl.fromTo("#y11", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 80.02);
+      tl.fromTo("#r11", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 80.37);
+      tl.fromTo("#t11", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 80.62);
+      tl.to("#s11", { opacity: 0, duration: 0.45, ease: "power1.in" }, 86.29);
+      tl.to("#fill", { width: "90.47619047619048%", duration: 0.9, ease: "power2.inOut" }, 79.92);
+      tl.to("#dot-2022", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 80.22);
+      tl.fromTo("#y12", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 86.83999999999999);
+      tl.fromTo("#r12", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 87.19);
+      tl.fromTo("#t12", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 87.44);
+      tl.to("#s12", { opacity: 0, duration: 0.45, ease: "power1.in" }, 94.67);
+      tl.to("#fill", { width: "92.85714285714286%", duration: 0.9, ease: "power2.inOut" }, 86.74);
+      tl.to("#dot-2023", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 87.03999999999999);
+      tl.fromTo("#y13", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 95.22);
+      tl.fromTo("#r13", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 95.57000000000001);
+      tl.fromTo("#t13", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 95.82000000000001);
+      tl.to("#s13", { opacity: 0, duration: 0.45, ease: "power1.in" }, 99.71);
+      tl.to("#fill", { width: "92.85714285714286%", duration: 0.9, ease: "power2.inOut" }, 95.12);
+      tl.to("#dot-2023", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 95.42);
+      tl.fromTo("#y14", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 100.25999999999999);
+      tl.fromTo("#r14", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 100.61);
+      tl.fromTo("#t14", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 100.86);
+      tl.to("#s14", { opacity: 0, duration: 0.45, ease: "power1.in" }, 107.60);
+      tl.to("#fill", { width: "92.85714285714286%", duration: 0.9, ease: "power2.inOut" }, 100.16);
+      tl.to("#dot-2023", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 100.46);
+      tl.fromTo("#y15", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 108.14999999999999);
+      tl.fromTo("#r15", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 108.5);
+      tl.fromTo("#t15", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 108.75);
+      tl.to("#s15", { opacity: 0, duration: 0.45, ease: "power1.in" }, 114.55);
+      tl.to("#fill", { width: "95.23809523809523%", duration: 0.9, ease: "power2.inOut" }, 108.05);
+      tl.to("#dot-2024", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 108.35);
+      tl.fromTo("#y16", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 115.1);
+      tl.fromTo("#r16", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 115.45);
+      tl.fromTo("#t16", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 115.7);
+      tl.to("#s16", { opacity: 0, duration: 0.45, ease: "power1.in" }, 119.83);
+      tl.to("#fill", { width: "100%", duration: 0.9, ease: "power2.inOut" }, 115);
+      tl.to("#dot-2026", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 115.3);
+      tl.fromTo("#y17", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 120.38);
+      tl.fromTo("#r17", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 120.73);
+      tl.fromTo("#t17", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 120.98);
+      tl.to("#s17", { opacity: 0, duration: 0.45, ease: "power1.in" }, 127.61);
+      tl.to("#fill", { width: "100%", duration: 0.9, ease: "power2.inOut" }, 120.28);
+      tl.to("#dot-2026", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 120.58);
+      tl.fromTo("#y18", { opacity: 0, y: 60, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 128.16);
+      tl.fromTo("#r18", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 128.51);
+      tl.fromTo("#t18", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 128.76);
+      tl.to("#s18", { opacity: 0, duration: 0.45, ease: "power1.in" }, 134.32);
+      tl.to("#fill", { width: "100%", duration: 0.9, ease: "power2.inOut" }, 128.06);
+      tl.to("#dot-2026", { backgroundColor: "#ffffff", scale: 1.35, duration: 0.4 }, 128.36);
+      tl.fromTo("#c-range", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, 134.97);
+      tl.fromTo("#c-text", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" }, 135.67000000000002);
+      tl.fromTo("#c-end", { opacity: 0 }, { opacity: 1, duration: 1 }, 136.97);
+      tl.to("#closing", { opacity: 0, duration: 0.8 }, 153.2);
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>
