@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 100 900; font-display: block; src: url(assets/fonts/inter.woff2) format("woff2"); }
+      :root {
+        --navy: #0b1f4b;
+        --royal: #2155d6;
+        --teal: #1fb5aa;
+        --slate: #4a5a78;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4f7fb; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: var(--navy); background: #f4f7fb; }
+      .clip { position: absolute; inset: 0; }
+
+      /* ---- camera world: three parallax planes, 4400 x 1080 world units ---- */
+      .layer { position: absolute; left: 0; top: 0; width: 4400px; height: 1080px; transform-origin: 0 0; will-change: transform; }
+      .layer svg { display: block; width: 4400px; height: 1080px; overflow: visible; }
+      #bg { filter: blur(1.6px); }
+      #fg { filter: blur(14px); }
+
+      /* ---- overlays ---- */
+      #scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(247,250,253,0.94) 0%, rgba(247,250,253,0.82) 30%, rgba(247,250,253,0) 58%); }
+      #scrim3 { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse 1100px 520px at 18% 24%, rgba(250,247,242,0.92) 0%, rgba(250,247,242,0.75) 45%, rgba(250,247,242,0) 100%); }
+      #vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 120% 100% at 50% 50%, rgba(11,31,75,0) 60%, rgba(11,31,75,0.10) 100%); }
+
+      .headline { position: absolute; left: 132px; top: 50%; transform: translateY(-50%); font-size: 58px; line-height: 1.14; font-weight: 600; letter-spacing: 0.01em; text-transform: uppercase; }
+      .headline .w { display: inline-block; opacity: 0; will-change: transform, opacity, filter; }
+      .accent { color: var(--royal); }
+      .accent-t { color: var(--teal); }
+
+      #title3 { position: absolute; left: 132px; top: 196px; }
+      #ra { font-size: 50px; font-weight: 700; letter-spacing: 0.14em; color: var(--navy); opacity: 0; white-space: nowrap; }
+      #ra .t { color: #12867e; }
+      #ra-sub { margin-top: 26px; font-size: 32px; font-weight: 400; color: var(--slate); letter-spacing: 0.005em; opacity: 0; }
+
+      /* ---- end card ---- */
+      #endcard { background: radial-gradient(ellipse 80% 70% at 50% 45%, #ffffff 0%, #f6f9fc 70%, #eef3f8 100%); opacity: 0; }
+      #logo { position: absolute; left: 50%; top: 448px; width: 640px; transform: translate(-50%, -50%); opacity: 0; }
+      #sweep { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      #final { position: absolute; left: 0; right: 0; top: 646px; text-align: center; font-size: 40px; font-weight: 600; letter-spacing: 0.16em; color: var(--navy); }
+      #final .w { display: inline-block; opacity: 0; }
+
+      #grain { position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: multiply; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="24" data-width="1920" data-height="1080">
+
+      <!-- ===================== WORLD (clinic → connection → remote dentist) ===================== -->
+      <div id="scene" class="clip" data-start="0" data-duration="19.6" data-track-index="1">
+
+        <!-- background plane -->
+        <div id="bg" class="layer">
+          <svg viewBox="0 0 4400 1080" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="wallH" x1="0" y1="0" x2="4400" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#eef3f9" />
+                <stop offset="0.42" stop-color="#edf2f8" />
+                <stop offset="0.53" stop-color="#eaf3f5" />
+                <stop offset="0.64" stop-color="#f6f0e8" />
+                <stop offset="1" stop-color="#f3ebe0" />
+              </linearGradient>
+              <linearGradient id="wallV" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.55" />
+                <stop offset="0.7" stop-color="#ffffff" stop-opacity="0" />
+                <stop offset="1" stop-color="#0b1f4b" stop-opacity="0.04" />
+              </linearGradient>
+              <linearGradient id="floorH" x1="0" y1="0" x2="4400" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#e2e9f1" />
+                <stop offset="0.45" stop-color="#e1e8f0" />
+                <stop offset="0.62" stop-color="#e9dccb" />
+                <stop offset="1" stop-color="#e3d2bc" />
+              </linearGradient>
+              <linearGradient id="floorV" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.35" />
+                <stop offset="1" stop-color="#0b1f4b" stop-opacity="0.06" />
+              </linearGradient>
+              <linearGradient id="skyCool" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="1" stop-color="#dbe9f6" />
+              </linearGradient>
+              <linearGradient id="skyWarm" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fffaf1" />
+                <stop offset="1" stop-color="#f4e3c8" />
+              </linearGradient>
+              <linearGradient id="beamCool" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.55" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="beamWarm" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fff6e6" stop-opacity="0.7" />
+                <stop offset="1" stop-color="#fff6e6" stop-opacity="0" />
+              </linearGradient>
+              <filter id="soft40"><feGaussianBlur stdDeviation="40" /></filter>
+              <filter id="soft14"><feGaussianBlur stdDeviation="14" /></filter>
+            </defs>
+
+            <rect width="4400" height="1080" fill="url(#wallH)" />
+            <rect width="4400" height="1080" fill="url(#wallV)" />
+
+            <!-- clinic ceiling soffit + light strip -->
+            <rect x="0" y="0" width="2050" height="58" fill="#e5ecf4" />
+            <rect x="160" y="54" width="1700" height="6" rx="3" fill="#ffffff" />
+            <ellipse cx="1010" cy="70" rx="900" ry="40" fill="#ffffff" opacity="0.7" filter="url(#soft40)" />
+
+            <!-- clinic window -->
+            <rect x="110" y="128" width="540" height="590" rx="6" fill="#d9e2ec" />
+            <rect x="122" y="140" width="516" height="566" fill="url(#skyCool)" />
+            <g opacity="0.45" filter="url(#soft14)">
+              <ellipse cx="240" cy="640" rx="140" ry="70" fill="#b9cfdc" />
+              <ellipse cx="520" cy="660" rx="170" ry="60" fill="#c3d6e0" />
+            </g>
+            <rect x="377" y="140" width="6" height="566" fill="#d9e2ec" />
+            <rect x="122" y="420" width="516" height="5" fill="#d9e2ec" />
+            <polygon points="650,140 1150,880 1500,880 650,706" fill="url(#beamCool)" opacity="0.6" filter="url(#soft40)" />
+
+            <!-- clinic wall panel seams -->
+            <rect x="1100" y="58" width="2" height="812" fill="#e2e9f1" />
+            <rect x="1960" y="58" width="2" height="812" fill="#e2e9f1" />
+
+            <!-- transition: soft architectural light between spaces -->
+            <ellipse cx="2400" cy="430" rx="520" ry="360" fill="#ffffff" opacity="0.8" filter="url(#soft40)" />
+
+            <!-- home window with sheer curtain -->
+            <rect x="2800" y="130" width="440" height="590" rx="6" fill="#e6d8c4" />
+            <rect x="2812" y="142" width="416" height="566" fill="url(#skyWarm)" />
+            <g opacity="0.5" filter="url(#soft14)">
+              <ellipse cx="2900" cy="600" rx="120" ry="90" fill="#c9d7b8" />
+              <ellipse cx="3130" cy="630" rx="140" ry="80" fill="#d3dcc0" />
+            </g>
+            <rect x="3017" y="142" width="6" height="566" fill="#e6d8c4" />
+            <rect x="3200" y="120" width="70" height="610" fill="#ffffff" opacity="0.65" />
+            <rect x="2770" y="120" width="56" height="610" fill="#ffffff" opacity="0.55" />
+            <polygon points="3240,142 3800,880 4150,880 3240,708" fill="url(#beamWarm)" opacity="0.7" filter="url(#soft40)" />
+
+            <!-- home shelf (minimal) -->
+            <g transform="translate(3960 250)">
+              <rect x="0" y="0" width="380" height="620" fill="#efe5d7" />
+              <rect x="0" y="150" width="380" height="8" fill="#d9c7ae" />
+              <rect x="0" y="320" width="380" height="8" fill="#d9c7ae" />
+              <rect x="0" y="490" width="380" height="8" fill="#d9c7ae" />
+              <rect x="40" y="70" width="18" height="80" fill="#36507e" />
+              <rect x="62" y="80" width="14" height="70" fill="#a9b9a2" />
+              <rect x="80" y="64" width="16" height="86" fill="#d8c3a2" />
+              <ellipse cx="260" cy="300" rx="34" ry="20" fill="#e4d6c2" />
+              <rect x="210" y="410" width="16" height="80" fill="#c7b394" />
+              <rect x="230" y="420" width="14" height="70" fill="#5f7a9e" />
+            </g>
+
+            <!-- floor -->
+            <rect x="0" y="866" width="4400" height="214" fill="url(#floorH)" />
+            <rect x="0" y="866" width="4400" height="214" fill="url(#floorV)" />
+            <rect x="0" y="864" width="4400" height="4" fill="#ffffff" opacity="0.8" />
+          </svg>
+        </div>
+
+        <!-- subject plane -->
+        <div id="mid" class="layer">
+          <svg viewBox="0 0 4400 1080" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="blurS"><feGaussianBlur stdDeviation="8" /></filter>
+              <filter id="blurM"><feGaussianBlur stdDeviation="18" /></filter>
+              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" /></filter>
+              <linearGradient id="connGrad" x1="1566" y1="0" x2="3330" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#1fb5aa" />
+                <stop offset="0.5" stop-color="#2a8fe0" />
+                <stop offset="1" stop-color="#1fb5aa" />
+              </linearGradient>
+              <radialGradient id="headGlow">
+                <stop offset="0" stop-color="#7fe6dc" stop-opacity="0.9" />
+                <stop offset="0.4" stop-color="#1fb5aa" stop-opacity="0.35" />
+                <stop offset="1" stop-color="#1fb5aa" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="lockGlow">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="1" />
+                <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.9" />
+                <stop offset="0.75" stop-color="#9fe3dc" stop-opacity="0.35" />
+                <stop offset="1" stop-color="#1fb5aa" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#c3d5ea" />
+                <stop offset="0.55" stop-color="#d8e5f3" />
+                <stop offset="1" stop-color="#eef3f9" />
+              </linearGradient>
+              <linearGradient id="skin" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#b98466" />
+                <stop offset="1" stop-color="#d4a283" />
+              </linearGradient>
+              <linearGradient id="glare" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.10" />
+                <stop offset="0.45" stop-color="#ffffff" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="upholstery" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#e3ecf8" />
+                <stop offset="1" stop-color="#c9d9ee" />
+              </linearGradient>
+
+              <!-- ClinicFloww dashboard (shared by clinic monitor and remote laptop) -->
+              <symbol id="dash" viewBox="0 0 360 225">
+                <rect width="360" height="225" fill="#f7fafd" />
+                <rect width="62" height="225" fill="#0b1f4b" />
+                <rect x="17" y="14" width="28" height="28" rx="7" fill="#2155d6" />
+                <path d="M22 28 h5 l3 -6 l4 12 l3 -6 h5" fill="none" stroke="#2ec4b6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="18" y="62" width="26" height="4" rx="2" fill="#2ec4b6" />
+                <rect x="18" y="80" width="26" height="4" rx="2" fill="#41598a" />
+                <rect x="18" y="98" width="26" height="4" rx="2" fill="#41598a" />
+                <rect x="18" y="116" width="26" height="4" rx="2" fill="#41598a" />
+                <rect x="78" y="16" width="70" height="8" rx="4" fill="#0b1f4b" />
+                <rect x="78" y="30" width="44" height="5" rx="2.5" fill="#b8c4d8" />
+                <rect x="300" y="16" width="44" height="16" rx="8" fill="#e3ebfb" />
+                <g fill="#e9eef6">
+                  <rect x="78" y="52" width="82" height="6" rx="3" />
+                  <rect x="170" y="52" width="82" height="6" rx="3" />
+                  <rect x="262" y="52" width="82" height="6" rx="3" />
+                </g>
+                <g stroke="#edf1f7" stroke-width="1">
+                  <line x1="78" y1="80" x2="344" y2="80" />
+                  <line x1="78" y1="112" x2="344" y2="112" />
+                  <line x1="78" y1="144" x2="344" y2="144" />
+                  <line x1="78" y1="176" x2="344" y2="176" />
+                  <line x1="78" y1="208" x2="344" y2="208" />
+                </g>
+                <g class="appt"><rect x="80" y="70" width="78" height="38" rx="5" fill="#dce6fb" /><rect x="80" y="70" width="3.5" height="38" rx="1.5" fill="#2155d6" /><rect x="90" y="80" width="40" height="4" rx="2" fill="#2155d6" opacity="0.7" /></g>
+                <g class="appt"><rect x="172" y="84" width="78" height="52" rx="5" fill="#d6f3ef" /><rect x="172" y="84" width="3.5" height="52" rx="1.5" fill="#1fb5aa" /><rect x="182" y="94" width="46" height="4" rx="2" fill="#159a91" opacity="0.7" /></g>
+                <g class="appt"><rect x="264" y="70" width="78" height="30" rx="5" fill="#dce6fb" /><rect x="264" y="70" width="3.5" height="30" rx="1.5" fill="#2155d6" /><rect x="274" y="80" width="34" height="4" rx="2" fill="#2155d6" opacity="0.7" /></g>
+                <g class="appt"><rect x="80" y="122" width="78" height="46" rx="5" fill="#d6f3ef" /><rect x="80" y="122" width="3.5" height="46" rx="1.5" fill="#1fb5aa" /><rect x="90" y="132" width="44" height="4" rx="2" fill="#159a91" opacity="0.7" /></g>
+                <g class="appt"><rect x="264" y="150" width="78" height="44" rx="5" fill="#dce6fb" /><rect x="264" y="150" width="3.5" height="44" rx="1.5" fill="#2155d6" /><rect x="274" y="160" width="38" height="4" rx="2" fill="#2155d6" opacity="0.7" /></g>
+                <g class="appt"><rect x="172" y="182" width="78" height="30" rx="5" fill="#dce6fb" /><rect x="172" y="182" width="3.5" height="30" rx="1.5" fill="#2155d6" /><rect x="182" y="192" width="30" height="4" rx="2" fill="#2155d6" opacity="0.7" /></g>
+              </symbol>
+            </defs>
+
+            <!-- ============ CLINIC ============ -->
+            <!-- operatory light -->
+            <path d="M780 0 L780 150 Q780 210 836 248 L900 300" fill="none" stroke="#dfe6ee" stroke-width="14" stroke-linecap="round" />
+            <g transform="rotate(-18 930 322)">
+              <ellipse cx="930" cy="322" rx="62" ry="26" fill="#f7f9fc" />
+              <ellipse cx="930" cy="334" rx="46" ry="10" fill="#ffffff" />
+            </g>
+            <ellipse cx="900" cy="420" rx="90" ry="60" fill="#ffffff" opacity="0.6" filter="url(#blurM)" />
+
+            <!-- dental chair -->
+            <ellipse cx="800" cy="884" rx="300" ry="20" fill="#0b1f4b" opacity="0.07" filter="url(#blurS)" />
+            <rect x="740" y="770" width="96" height="104" rx="10" fill="#e3e9f0" />
+            <rect x="680" y="862" width="220" height="16" rx="8" fill="#d6dee8" />
+            <rect x="640" y="716" width="270" height="56" rx="26" fill="url(#upholstery)" />
+            <rect x="452" y="740" width="210" height="44" rx="22" fill="url(#upholstery)" transform="rotate(-14 660 760)" />
+            <rect x="880" y="696" width="250" height="54" rx="26" fill="url(#upholstery)" transform="rotate(-30 900 742)" />
+            <rect x="1080" y="566" width="84" height="44" rx="20" fill="#d3e1f2" transform="rotate(-30 1122 588)" />
+            <rect x="660" y="704" width="230" height="10" rx="5" fill="#ffffff" opacity="0.7" />
+
+            <!-- counter -->
+            <rect x="1150" y="706" width="700" height="166" fill="#fbfcfe" />
+            <rect x="1140" y="690" width="720" height="18" rx="4" fill="#e7edf4" />
+            <rect x="1150" y="708" width="700" height="10" fill="#0b1f4b" opacity="0.05" />
+            <rect x="1498" y="726" width="2" height="146" fill="#e4eaf1" />
+            <rect x="1418" y="760" width="56" height="5" rx="2.5" fill="#c9d3df" />
+            <rect x="1524" y="760" width="56" height="5" rx="2.5" fill="#c9d3df" />
+            <ellipse cx="1500" cy="878" rx="380" ry="12" fill="#0b1f4b" opacity="0.06" filter="url(#blurS)" />
+
+            <!-- plant -->
+            <g>
+              <path d="M1752 640 h56 l-6 50 h-44 z" fill="#ffffff" stroke="#e1e7ef" stroke-width="2" />
+              <ellipse cx="1768" cy="604" rx="14" ry="38" fill="#93b39e" transform="rotate(-24 1768 640)" />
+              <ellipse cx="1794" cy="596" rx="13" ry="44" fill="#7fa58d" transform="rotate(16 1794 640)" />
+              <ellipse cx="1782" cy="590" rx="11" ry="48" fill="#a6c2ae" />
+            </g>
+
+            <!-- monitor -->
+            <ellipse cx="1380" cy="560" rx="260" ry="180" fill="#cfe2fb" opacity="0.55" filter="url(#blurM)" />
+            <rect x="1364" y="672" width="32" height="22" fill="#c9d1dc" />
+            <ellipse cx="1380" cy="692" rx="70" ry="6" fill="#bec8d4" />
+            <rect x="1190" y="430" width="380" height="245" rx="11" fill="#141c2a" />
+            <use href="#dash" x="1200" y="440" width="360" height="225" />
+            <rect x="1200" y="440" width="360" height="225" fill="url(#glare)" />
+            <rect x="1262" y="694" width="236" height="7" rx="3" fill="#dfe5ec" />
+
+            <!-- ============ REMOTE ============ -->
+            <!-- table -->
+            <rect x="3060" y="776" width="1080" height="16" rx="3" fill="#dbc5a6" />
+            <rect x="3060" y="790" width="1080" height="12" fill="#c8b08f" />
+            <rect x="3110" y="800" width="16" height="200" fill="#bea482" />
+            <ellipse cx="3480" cy="776" rx="230" ry="7" fill="#5b4630" opacity="0.18" filter="url(#blurS)" />
+
+            <!-- mug -->
+            <g>
+              <path d="M3238 736 q20 0 20 16 q0 16 -20 16" fill="none" stroke="#f3f0ea" stroke-width="6" />
+              <rect x="3192" y="728" width="48" height="48" rx="8" fill="#f8f6f2" />
+              <rect x="3192" y="728" width="14" height="48" rx="7" fill="#e9e3d8" />
+            </g>
+
+            <!-- laptop -->
+            <rect x="3318" y="551" width="324" height="203" rx="10" fill="#1a2332" />
+            <use href="#dash" x="3330" y="562" width="300" height="187.5" />
+            <rect id="lapDim" x="3330" y="562" width="300" height="187.5" fill="#121a27" />
+            <rect id="lapGlow" x="3330" y="562" width="300" height="187.5" fill="#bfe9ff" opacity="0" />
+            <rect x="3330" y="562" width="300" height="187.5" fill="url(#glare)" />
+            <path d="M3300 754 h360 l-14 18 h-332 z" fill="#c9d0da" />
+            <rect x="3300" y="752" width="360" height="5" rx="2" fill="#e2e7ee" />
+
+            <!-- dentist (over-the-shoulder, relaxed) -->
+            <g id="dentist">
+              <rect x="3796" y="676" width="64" height="100" rx="22" fill="url(#skin)" />
+              <path d="M3640 1080 C3636 930 3664 812 3752 772 C3790 756 3860 752 3920 758 C4012 770 4070 820 4090 900 L4114 1080 Z" fill="url(#shirt)" />
+              <path d="M3770 772 C3800 790 3840 794 3874 784 L3880 760 C3850 770 3808 770 3782 758 Z" fill="#eef4fb" />
+              <g id="armL">
+                <path d="M3712 830 C3660 830 3610 800 3574 770" fill="none" stroke="#c7d8ec" stroke-width="58" stroke-linecap="round" />
+                <ellipse cx="3562" cy="760" rx="26" ry="13" fill="#c48f70" />
+              </g>
+              <g id="head">
+                <ellipse cx="3834" cy="616" rx="66" ry="76" fill="url(#skin)" />
+                <path d="M3790 690 C3778 668 3770 650 3770 630 L3800 680 Z" fill="#a8735a" opacity="0.5" />
+                <path d="M3768 600 C3760 540 3800 500 3850 500 C3906 500 3936 548 3932 610 C3929 652 3912 684 3888 700 C3870 706 3856 704 3846 696 C3862 672 3864 640 3852 616 C3838 592 3806 584 3776 596 Z" fill="#2e2622" />
+                <path d="M3800 520 C3840 506 3888 512 3912 540" fill="none" stroke="#4a3d35" stroke-width="5" stroke-linecap="round" opacity="0.6" />
+                <ellipse cx="3820" cy="636" rx="10" ry="16" fill="#b67f61" />
+                <path d="M3815 622 L3774 616" stroke="#1d2533" stroke-width="2.6" stroke-linecap="round" />
+                <path d="M3774 610 C3768 616 3768 628 3772 634" fill="none" stroke="#1d2533" stroke-width="2.6" stroke-linecap="round" />
+              </g>
+            </g>
+
+            <!-- ============ CONNECTION ============ -->
+            <path id="connGlow" d="M1566 552 C1820 552 1980 430 2400 430 C2820 430 3040 655 3330 655" fill="none" stroke="#1fb5aa" stroke-width="10" stroke-linecap="round" opacity="0.45" filter="url(#glow)" />
+            <path id="conn" d="M1566 552 C1820 552 1980 430 2400 430 C2820 430 3040 655 3330 655" fill="none" stroke="url(#connGrad)" stroke-width="3" stroke-linecap="round" />
+
+            <g id="lock" opacity="0">
+              <circle cx="2400" cy="430" r="64" fill="url(#lockGlow)" />
+              <circle id="lockRing" cx="2400" cy="430" r="40" fill="none" stroke="#1fb5aa" stroke-width="1.5" opacity="0.5" />
+              <path id="shackle" d="M2389 427 v-11 a11 11 0 0 1 22 0 v11" fill="none" stroke="#0b1f4b" stroke-width="3.4" stroke-linecap="round" />
+              <rect x="2383" y="425" width="34" height="27" rx="6" fill="#0b1f4b" />
+              <circle cx="2400" cy="436" r="3.2" fill="#2ec4b6" />
+              <rect x="2398.8" y="437" width="2.4" height="7" rx="1.2" fill="#2ec4b6" />
+            </g>
+
+            <g id="cHead" opacity="0">
+              <circle r="26" fill="url(#headGlow)" />
+              <circle r="4.5" fill="#ffffff" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- foreground plane (out of focus) -->
+        <div id="fg" class="layer">
+          <svg viewBox="0 0 4400 1080" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.75">
+              <ellipse cx="300" cy="1010" rx="60" ry="180" fill="#8fae99" transform="rotate(-28 300 1080)" />
+              <ellipse cx="380" cy="1000" rx="56" ry="200" fill="#7c9f88" transform="rotate(8 380 1080)" />
+              <ellipse cx="450" cy="1030" rx="50" ry="160" fill="#a3bfab" transform="rotate(30 450 1080)" />
+            </g>
+            <rect x="2050" y="0" width="18" height="1080" fill="#ffffff" opacity="0.7" />
+            <rect x="2090" y="0" width="6" height="1080" fill="#d8e3ee" opacity="0.6" />
+          </svg>
+        </div>
+
+        <div id="scrim"></div>
+        <div id="scrim3"></div>
+        <div id="vignette"></div>
+
+        <div id="h1" class="headline"><span class="w">We</span> <span class="w">didn’t</span> <span class="w">move</span> <span class="w">your</span> <span class="w">clinic</span><br /><span class="w">to</span> <span class="w">the</span> <span class="w">cloud.</span></div>
+        <div id="h2" class="headline"><span class="w">We</span> <span class="w">brought</span> <span class="w">your</span><br /><span class="w">clinic</span> <span class="w accent">to</span> <span class="w accent">you.</span></div>
+
+        <div id="title3">
+          <div id="ra">CLINICFLOWW <span class="t">REMOTE ACCESS</span></div>
+          <div id="ra-sub">Access your clinic’s system securely, even when you’re away.</div>
+        </div>
+      </div>
+
+      <!-- ===================== END CARD ===================== -->
+      <div id="endcard" class="clip" data-start="18.6" data-duration="5.4" data-track-index="2">
+        <img id="logo" src="assets/logo/clinicfloww-logo.svg" alt="ClinicFloww" />
+        <svg id="sweep" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sweepGrad" x1="600" y1="0" x2="1320" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#1fb5aa" stop-opacity="0" />
+              <stop offset="0.2" stop-color="#1fb5aa" />
+              <stop offset="0.6" stop-color="#2a8fe0" />
+              <stop offset="1" stop-color="#1fb5aa" stop-opacity="0" />
+            </linearGradient>
+            <filter id="sGlow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="6" /></filter>
+          </defs>
+          <path id="sweepGlow" d="M600 568 C800 600 1120 600 1320 562" fill="none" stroke="#1fb5aa" stroke-width="9" stroke-linecap="round" opacity="0.4" filter="url(#sGlow)" />
+          <path id="sweepLine" d="M600 568 C800 600 1120 600 1320 562" fill="none" stroke="url(#sweepGrad)" stroke-width="3" stroke-linecap="round" />
+        </svg>
+        <div id="final"><span class="w">YOUR</span> <span class="w">CLINIC.</span> <span class="w accent">WHEREVER</span> <span class="w accent">YOU</span> <span class="w accent">ARE.</span></div>
+      </div>
+
+      <!-- static film grain (deterministic) -->
+      <svg id="grain" class="clip" data-start="0" data-duration="24" data-track-index="3" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+        <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
+        <rect width="1920" height="1080" filter="url(#n)" />
+      </svg>
+
+      <audio id="score" class="clip" data-start="0" data-duration="24" data-track-index="4" src="assets/audio/clinicfloww-score.wav"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- helpers: deterministic sampled motion (no onUpdate callbacks) ----------
+      const E = (name) => gsap.parseEase(name);
+      const lerp = (a, b, u) => a + (b - a) * u;
+      function drive(target, fn, t0, t1, fps) {
+        const n = Math.max(1, Math.ceil((t1 - t0) * (fps || 24)));
+        const dt = (t1 - t0) / n;
+        tl.set(target, fn(0), t0);
+        for (let i = 1; i <= n; i++) tl.to(target, Object.assign({ duration: dt, ease: "none" }, fn(i / n)), t0 + (i - 1) * dt);
+      }
+
+      // ---------- camera: centre (cx, cy) in world units + zoom ----------
+      const K = [
+        { t: 0.0, cx: 1080, cy: 540, z: 1.0 },
+        { t: 7.0, cx: 1120, cy: 545, z: 1.6, ease: "power1.inOut" },   // slow push to the dashboard
+        { t: 12.9, cx: 3560, cy: 575, z: 1.18, ease: "power2.inOut" }, // follow the connection
+        { t: 19.6, cx: 3610, cy: 592, z: 1.3, ease: "sine.inOut" },    // gentle push on the dentist
+      ];
+      function camAt(t) {
+        for (let i = 1; i < K.length; i++) {
+          if (t <= K[i].t || i === K.length - 1) {
+            const a = K[i - 1], b = K[i];
+            const u = E(b.ease)(Math.min(1, Math.max(0, (t - a.t) / (b.t - a.t))));
+            return { cx: lerp(a.cx, b.cx, u), cy: lerp(a.cy, b.cy, u), z: Math.exp(lerp(Math.log(a.z), Math.log(b.z), u)) };
+          }
+        }
+      }
+      const CX0 = 2200;
+      [["#bg", 0.82], ["#mid", 1.0], ["#fg", 1.35]].forEach(([sel, d]) => {
+        drive(sel, (u) => {
+          const c = camAt(u * 19.6);
+          const z = 1 + (c.z - 1) * d;
+          const cx = CX0 + (c.cx - CX0) * d;
+          return { x: 960 - cx * z, y: 540 - c.cy * z, scale: z, transformOrigin: "0 0" };
+        }, 0, 19.6, 20);
+      });
+
+      // depth of field: background softens as we push into the screen
+      tl.fromTo("#bg", { filter: "blur(1px)" }, { filter: "blur(3px)", duration: 6, ease: "sine.inOut" }, 1);
+
+      // ---------- dashboard populates ----------
+      tl.fromTo("#dash .appt", { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.3, ease: "sine.out" }, 0.8);
+
+      // ---------- headline ----------
+      tl.fromTo("#scene", { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "sine.out" }, 0);
+      tl.fromTo("#h1 .w", { opacity: 0, y: 22, filter: "blur(8px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.14, ease: "power3.out" }, 0.9);
+      tl.to("#h1 .w", { opacity: 0, y: -16, filter: "blur(8px)", duration: 0.6, stagger: 0.04, ease: "power2.in" }, 4.2);
+      tl.fromTo("#h2 .w", { opacity: 0, y: 22, filter: "blur(8px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.14, ease: "power3.out" }, 5.05);
+      tl.to("#h2 .w", { opacity: 0, filter: "blur(6px)", duration: 0.6, stagger: 0.03, ease: "power1.in" }, 7.25);
+      tl.to("#scrim", { opacity: 0, duration: 1.0, ease: "sine.inOut" }, 7.3);
+
+      // ---------- connection line ----------
+      const conn = document.getElementById("conn");
+      const L = conn.getTotalLength();
+      const P0 = 6.9, P1 = 12.85, pe = E("power1.inOut");
+      const pAt = (u) => pe(u);
+      tl.set(["#conn", "#connGlow"], { attr: { "stroke-dasharray": L + " " + L, "stroke-dashoffset": L } }, 0);
+      drive(["#conn", "#connGlow"], (u) => ({ attr: { "stroke-dashoffset": L * (1 - pAt(u)) } }), P0, P1, 24);
+      drive("#cHead", (u) => {
+        const pt = conn.getPointAtLength(L * pAt(u));
+        return { x: pt.x, y: pt.y };
+      }, P0, P1, 24);
+      tl.fromTo("#cHead", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "sine.out" }, P0 - 0.15);
+      tl.to("#cHead", { opacity: 0, duration: 0.6, ease: "sine.in" }, P1 - 0.05);
+
+      // lock — appears as the line passes through, shackle closes on the chime
+      tl.fromTo("#lock", { opacity: 0, scale: 0.86, svgOrigin: "2400 430" }, { opacity: 1, scale: 1, duration: 0.55, ease: "power2.out" }, 9.45);
+      tl.fromTo("#shackle", { y: -6 }, { y: 0, duration: 0.22, ease: "power2.in" }, 9.78);
+      tl.fromTo("#lockRing", { attr: { r: 40 }, opacity: 0.55 }, { attr: { r: 70 }, opacity: 0, duration: 1.3, ease: "sine.out" }, 9.95);
+      tl.to("#lock", { opacity: 0, duration: 0.7, ease: "sine.inOut" }, 11.2);
+
+      // arrival — laptop wakes with the same dashboard
+      tl.to("#lapGlow", { opacity: 0.55, duration: 0.25, ease: "sine.out" }, 12.8);
+      tl.to("#lapDim", { opacity: 0, duration: 0.6, ease: "sine.out" }, 12.85);
+      tl.to("#lapGlow", { opacity: 0, duration: 0.9, ease: "sine.inOut" }, 13.05);
+      tl.to(["#conn", "#connGlow"], { opacity: 0.25, duration: 1.6, ease: "sine.inOut" }, 13.6);
+
+      // dentist: calm breathing + small typing motion
+      tl.fromTo("#dentist", { y: 0 }, { y: -2.5, duration: 1.8, ease: "sine.inOut", repeat: 9, yoyo: true }, 0);
+      tl.fromTo("#armL", { x: 0 }, { x: -3, duration: 0.45, ease: "sine.inOut", repeat: 13, yoyo: true }, 13.4);
+      tl.fromTo("#head", { rotation: 0, svgOrigin: "3834 690" }, { rotation: -2, duration: 2.4, ease: "sine.inOut", repeat: 3, yoyo: true }, 12.0);
+
+      // ---------- remote access title ----------
+      tl.to("#scrim3", { opacity: 1, duration: 1.0, ease: "sine.inOut" }, 13.1);
+      tl.fromTo("#ra", { opacity: 0, x: -18, filter: "blur(6px)" },
+        { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.4, ease: "power3.out" }, 13.6);
+      tl.fromTo("#ra-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" }, 15.0);
+      tl.to(["#ra", "#ra-sub"], { opacity: 0, duration: 0.6, ease: "sine.in" }, 18.2);
+
+      // ---------- end card ----------
+      tl.to("#scene", { opacity: 0, filter: "blur(10px)", duration: 1.0, ease: "sine.inOut" }, 18.6);
+      tl.fromTo("#endcard", { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "sine.inOut" }, 18.6);
+      tl.fromTo("#logo", { opacity: 0, scale: 0.97, filter: "blur(6px)" },
+        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "power2.out" }, 19.2);
+      const sw = document.getElementById("sweepLine");
+      const SL = sw.getTotalLength();
+      tl.set(["#sweepLine", "#sweepGlow"], { attr: { "stroke-dasharray": SL + " " + SL, "stroke-dashoffset": SL } }, 0);
+      tl.to(["#sweepLine", "#sweepGlow"], { attr: { "stroke-dashoffset": 0 }, duration: 1.3, ease: "power2.inOut" }, 20.0);
+      tl.to(["#sweepLine", "#sweepGlow"], { attr: { "stroke-dashoffset": -SL }, duration: 1.4, ease: "power2.inOut" }, 21.35);
+      tl.to(["#sweepLine", "#sweepGlow"], { opacity: 0, duration: 0.6, ease: "sine.in" }, 22.0);
+      tl.fromTo("#final .w", { opacity: 0, y: 14, filter: "blur(6px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.16, ease: "power3.out" }, 21.0);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
