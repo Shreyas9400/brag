@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="viewport" content="width=1080, height=1920" />
     <script src="assets/gsap.min.js"></script>
     <style>
       @font-face { font-family: "Inter"; font-weight: 100 900; font-display: block; src: url(assets/fonts/inter.woff2) format("woff2"); }
@@ -13,8 +13,8 @@
         --slate: #4a5a78;
       }
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4f7fb; }
-      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: var(--navy); background: #f4f7fb; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4f7fb; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: var(--navy); background: #f4f7fb; }
       .clip { position: absolute; inset: 0; }
 
       /* ---- camera world: three parallax planes, 4400 x 1080 world units ---- */
@@ -41,16 +41,25 @@
       /* ---- end card ---- */
       #endcard { background: radial-gradient(ellipse 80% 70% at 50% 45%, #ffffff 0%, #f6f9fc 70%, #eef3f8 100%); opacity: 0; }
       #logo { position: absolute; left: 50%; top: 398px; height: 440px; transform: translate(-50%, -50%); opacity: 0; }
-      #sweep { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      #sweep { position: absolute; inset: 0; width: 1080px; height: 1920px; }
       #final { position: absolute; left: 0; right: 0; top: 718px; text-align: center; font-size: 40px; font-weight: 600; letter-spacing: 0.16em; color: var(--navy); }
       #final .w { display: inline-block; opacity: 0; }
 
       #grain { position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: multiply; pointer-events: none; }
 
+      /* ---- portrait overrides ---- */
+      #scrim { background: linear-gradient(180deg, rgba(247,250,253,0.95) 0%, rgba(247,250,253,0.86) 26%, rgba(247,250,253,0) 44%); }
+      #scrim3 { background: linear-gradient(180deg, rgba(250,247,242,0.95) 0%, rgba(250,247,242,0.85) 22%, rgba(250,247,242,0) 38%); }
+      .headline { left: 0; right: 0; top: 250px; transform: none; text-align: center; font-size: 72px; line-height: 1.12; }
+      #title3 { left: 0; right: 0; top: 190px; text-align: center; }
+      #ra { font-size: 58px; line-height: 1.18; letter-spacing: 0.12em; white-space: normal; }
+      #ra-sub { margin: 30px auto 0; max-width: 820px; font-size: 36px; line-height: 1.35; }
+      #logo { top: 800px; height: 540px; }
+      #final { top: 1196px; font-size: 48px; line-height: 1.5; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="24" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="24" data-width="1080" data-height="1920">
 
       <!-- ===================== WORLD (clinic → connection → remote dentist) ===================== -->
       <div id="scene" class="clip" data-start="0" data-duration="19.6" data-track-index="1">
@@ -436,11 +445,11 @@
         <div id="scrim3"></div>
         <div id="vignette"></div>
 
-        <div id="h1" class="headline"><span class="w">We</span> <span class="w">didn’t</span> <span class="w">move</span> <span class="w">your</span> <span class="w">clinic</span><br /><span class="w">to</span> <span class="w">the</span> <span class="w">cloud.</span></div>
-        <div id="h2" class="headline"><span class="w">We</span> <span class="w">brought</span> <span class="w">your</span><br /><span class="w">clinic</span> <span class="w accent">to</span> <span class="w accent">you.</span></div>
+        <div id="h1" class="headline"><span class="w">We</span> <span class="w">didn’t</span> <span class="w">move</span><br /><span class="w">your</span> <span class="w">clinic</span><br /><span class="w">to</span> <span class="w">the</span> <span class="w">cloud.</span></div>
+        <div id="h2" class="headline"><span class="w">We</span> <span class="w">brought</span><br /><span class="w">your</span> <span class="w">clinic</span><br /><span class="w accent">to</span> <span class="w accent">you.</span></div>
 
         <div id="title3">
-          <div id="ra">CLINICFLOWW <span class="t">REMOTE ACCESS</span></div>
+          <div id="ra">CLINICFLOWW<br /><span class="t">REMOTE ACCESS</span></div>
           <div id="ra-sub">Access your clinic’s system securely, even when you’re away.</div>
         </div>
       </div>
@@ -448,9 +457,9 @@
       <!-- ===================== END CARD ===================== -->
       <div id="endcard" class="clip" data-start="18.6" data-duration="5.4" data-track-index="2">
         <img id="logo" src="assets/logo/clinicfloww-logo.png" alt="ClinicFloww" />
-        <svg id="sweep" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+        <svg id="sweep" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="sweepGrad" x1="640" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+            <linearGradient id="sweepGrad" x1="300" y1="0" x2="780" y2="0" gradientUnits="userSpaceOnUse">
               <stop offset="0" stop-color="#1fb5aa" stop-opacity="0" />
               <stop offset="0.2" stop-color="#1fb5aa" />
               <stop offset="0.6" stop-color="#2a8fe0" />
@@ -458,16 +467,16 @@
             </linearGradient>
             <filter id="sGlow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="6" /></filter>
           </defs>
-          <path id="sweepGlow" d="M640 664 C840 694 1080 694 1280 658" fill="none" stroke="#1fb5aa" stroke-width="9" stroke-linecap="round" opacity="0.4" filter="url(#sGlow)" />
-          <path id="sweepLine" d="M640 664 C840 694 1080 694 1280 658" fill="none" stroke="url(#sweepGrad)" stroke-width="3" stroke-linecap="round" />
+          <path id="sweepGlow" d="M300 1132 C450 1162 630 1162 780 1126" fill="none" stroke="#1fb5aa" stroke-width="9" stroke-linecap="round" opacity="0.4" filter="url(#sGlow)" />
+          <path id="sweepLine" d="M300 1132 C450 1162 630 1162 780 1126" fill="none" stroke="url(#sweepGrad)" stroke-width="3" stroke-linecap="round" />
         </svg>
-        <div id="final"><span class="w">YOUR</span> <span class="w">CLINIC.</span> <span class="w accent">WHEREVER</span> <span class="w accent">YOU</span> <span class="w accent">ARE.</span></div>
+        <div id="final"><span class="w">YOUR</span> <span class="w">CLINIC.</span><br /><span class="w accent">WHEREVER</span> <span class="w accent">YOU</span> <span class="w accent">ARE.</span></div>
       </div>
 
       <!-- static film grain (deterministic) -->
-      <svg id="grain" class="clip" data-start="0" data-duration="24" data-track-index="3" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+      <svg id="grain" class="clip" data-start="0" data-duration="24" data-track-index="3" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
         <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
-        <rect width="1920" height="1080" filter="url(#n)" />
+        <rect width="1080" height="1920" filter="url(#n)" />
       </svg>
 
       <audio id="score" class="clip" data-start="0" data-duration="24" data-track-index="4" src="assets/audio/clinicfloww-score.wav"></audio>
@@ -489,14 +498,14 @@
 
       // ---------- camera: centre (cx, cy) in world units + zoom ----------
 
-      const FX = 960, FY = 540;
+      const FX = 540, FY = 960;
       const K = [
-        { t: 0.0, cx: 1080, cy: 540, z: 1.0 },
-        { t: 7.0, cx: 1120, cy: 545, z: 1.6, ease: "power1.inOut" },   // slow push to the dashboard
-        { t: 12.9, cx: 3560, cy: 575, z: 1.18, ease: "power2.inOut" }, // follow the connection
-        { t: 19.6, cx: 3610, cy: 592, z: 1.3, ease: "sine.inOut" },    // gentle push on the dentist
+        { t: 0.0, cx: 1330, cy: 540, z: 1.8 },
+        { t: 7.0, cx: 1380, cy: 431, z: 2.4, ease: "power1.inOut" },   // slow push to the dashboard
+        { t: 12.9, cx: 3545, cy: 600, z: 1.28, ease: "power2.inOut" }, // follow the connection
+        { t: 19.6, cx: 3550, cy: 612, z: 1.32, ease: "sine.inOut" },   // gentle push on the dentist
       ];
-      const FOLLOW = 0;
+      const FOLLOW = 1; // narrow frame: camera tracks the travelling line
 
       function camKey(t) {
         for (let i = 1; i < K.length; i++) {
