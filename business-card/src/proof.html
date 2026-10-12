@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><title>FlowwTech business card proof</title>
+<style>
+@page { size: 297mm 210mm; margin: 0 }
+* { box-sizing: border-box; margin: 0 }
+body { width: 297mm; height: 210mm; font-family: Inter, sans-serif; color: #1a1f1e; background: #fff; padding: 16mm 18mm }
+h1 { font-size: 9pt; font-weight: 600; letter-spacing: .08em; text-transform: uppercase }
+.meta { font-size: 6.5pt; color: #5b6461; margin-top: 1.2mm }
+.row { display: flex; gap: 14mm; margin-top: 22mm; justify-content: center }
+.side { text-align: center; font-size: 6.5pt; color: #5b6461 }
+.sheet { position: relative; width: 108mm; height: 72mm; margin-bottom: 3mm } /* 96x60 art + 6mm for crop marks */
+.sheet img { position: absolute; left: 6mm; top: 6mm; width: 96mm; height: 60mm }
+.trim { position: absolute; left: 9mm; top: 9mm; width: 90mm; height: 54mm; outline: .15mm dashed #e0245e }
+.safe { position: absolute; left: 13mm; top: 13mm; width: 82mm; height: 46mm; outline: .15mm dotted #2f80ed }
+.cm { position: absolute; background: #000 }
+.legend { display: flex; gap: 8mm; justify-content: center; margin-top: 7mm; font-size: 6.5pt; color: #5b6461 }
+.legend span::before { content: ""; display: inline-block; width: 6mm; margin-right: 2mm; vertical-align: middle; border-top: .3mm dashed #e0245e }
+.legend span.s::before { border-top: .3mm dotted #2f80ed }
+.legend span.b::before { border-top: .3mm solid #9aa3a0 }
+</style></head><body>
+<h1>FlowwTech Industries — Business card proof (100% scale)</h1>
+<p class="meta">Trim 90 × 54 mm · Bleed 3 mm (artwork 96 × 60 mm) · Safe zone 4 mm · Print file: flowwtech-business-card-print-cmyk.pdf (page 1 front, page 2 back)</p>
+<div class="row">
+  <div class="side"><div class="sheet" id="f"><img src="../artwork/flowwtech-card-front-bleed.svg"><div class="trim"></div><div class="safe"></div></div>Front</div>
+  <div class="side"><div class="sheet" id="b"><img src="../artwork/flowwtech-card-back-bleed.svg"><div class="trim"></div><div class="safe"></div></div>Back</div>
+</div>
+<div class="legend"><span>Trim line</span><span class="s">Safe zone</span><span class="b">Crop marks (outside bleed)</span></div>
+<script>
+// crop marks: 4 mm long, 0.1 mm thick, offset outside the bleed
+for (const s of document.querySelectorAll('.sheet')) {
+  const add = (l, t, w, h) => { const d = document.createElement('div'); d.className = 'cm';
+    Object.assign(d.style, { left: l + 'mm', top: t + 'mm', width: w + 'mm', height: h + 'mm' }); s.appendChild(d); };
+  for (const x of [9, 99]) { add(x - .05, 0, .1, 5); add(x - .05, 67, .1, 5); }
+  for (const y of [9, 63]) { add(0, y - .05, 5, .1); add(103, y - .05, 5, .1); }
+}
+</script></body></html>
