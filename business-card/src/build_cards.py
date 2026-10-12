@@ -178,13 +178,16 @@ def back():
                      weight=400, spacing=0.01, extra=' id="positioning"'))
 
     # services
-    sep = f'<tspan fill="{TEAL}" font-weight="300" dx="1.1">|</tspan><tspan dx="1.1">'
+    sep = f'<tspan fill="{TEAL}" font-weight="300" dx="1.0">|</tspan><tspan dx="1.0">'
     def services(y, items, idv):
         inner = (f"</tspan>{sep}").join(items)
-        return (f'<text id="{idv}" x="{m}" y="{y}" font-family="{FONT}" font-size="{6.2 * PT:.4f}" '
-                f'font-weight="400" fill="{BODY}" letter-spacing="{0.01 * 6.2 * PT:.4f}"><tspan>{inner}</tspan></text>')
-    body.append(services(25.9, ["Healthcare Solutions", "Operations Management"], "services-1"))
-    body.append(services(30.1, ["Web Applications", "Mobile Apps", "Cloud &amp; AI Solutions"], "services-2"))
+        return (f'<text id="{idv}" x="{m}" y="{y}" font-family="{FONT}" font-size="{6.0 * PT:.4f}" '
+                f'font-weight="400" fill="{BODY}" letter-spacing="{0.01 * 6.0 * PT:.4f}"><tspan>{inner}</tspan></text>')
+    rows = [["Custom Software Development", "Web Applications", "Mobile Apps"],
+            ["Cloud Solutions", "AI &amp; Automation", "Business Management Systems"],
+            ["API Integrations", "UI/UX Design", "Support &amp; Maintenance"]]
+    for i, row in enumerate(rows):
+        body.append(services(23.7 + i * 3.95, row, f"services-{i + 1}"))
 
     # contact
     col2 = 39.0
